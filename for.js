@@ -33,3 +33,31 @@ function movieSeats() {
 
     }
 }
+
+function seats(){
+    var seats = [false, true, false, true, true, true, false, true, false];
+    for (var i = 0; i < seats.length; i++){
+        //prompt("Enter Seat Number 1 - 9:")
+        if(seats[i])
+            alert("Seat " + i + " is available");
+        else
+        alert("Seat " + i + " is not available.");
+    }
+}
+
+function initSeats(){
+    var seats = [false, true, false, true, true, true, false, true, false];
+    // Initialize the appearance of all seats
+    for(var i = 0; i < seats.length; i++) {
+        if(seats[i]){
+            // Set the seat to available
+            document.getElementById("Seat " + i).src = "Available.jpeg";
+            document.getElementById("Seat " + i).alt = "Available Seat";
+        }
+        else{
+            // Set the seat to unavailable
+            document.getElementById("Seat " + i).src = "Unavailable.jpeg";
+            document.getElementById("Seat " + i).alt = "unavailable Seat";
+        }
+    }
+}
