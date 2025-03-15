@@ -7,16 +7,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mandango</title>
 </head>
-<body onload="initSeats();">
-    <img id="seat0" src="" alt="" />
-    <img id="seat1" src="" alt="" />
-    <img id="seat2" src="" alt="" />
-    <img id="seat3" src="" alt="" />
-    <img id="seat4" src="" alt="" />
-    <img id="seat5" src="" alt="" />
-    <img id="seat6" src="" alt="" />
-    <img id="seat7" src="" alt="" />
-    <img id="seat8" src="" alt="" /></br>
-    <button onclick="movieSeats()">Show Time</button>
+<body onload="initSeats()">
+    <h1> Seat Selection</h1>
+    <div class="seat-container">
+        <!-- Seat images with unique IDs-->
+        <img id="Seat 0" class="seat" src="Unavailable.jpeg" alt="Unavailable Seat" />
+        <img id="Seat 1" class="seat" src="Available.jpeg" alt="Available Seat" />
+        <img id="Seat 2" class="seat" src="Unavailable.jpeg" alt="Unavailable Seat" />    
+        <img id="Seat 3" class="seat" src="Available.jpeg" alt="Available Seat" />
+        <img id="Seat 4" class="seat" src="Available.jpeg" alt="Available Seat" />
+        <img id="Seat 5" class="seat" src="Available.jpeg" alt="Available Seat" />
+        <img id="Seat 6" class="seat" src="Unavailable.jpeg" alt="Unavailable Seat" />
+        <img id="Seat 7" class="seat" src="Available.jpeg" alt="Available Seat" />
+        <img id="Seat 8" class="seat" src="Unavailable.jpeg" alt="Unavailable Seat" />
+    </div>
+    <button onclick="findSeat()">Find a Seat</button>
 </body>
 </html>

@@ -36,28 +36,70 @@ function movieSeats() {
 
 function seats(){
     var seats = [false, true, false, true, true, true, false, true, false];
-    for (var i = 0; i < seats.length; i++){
-        //prompt("Enter Seat Number 1 - 9:")
+    var seatNo = prompt("Enter Seat Number 1 - 9:")
+    for (var i = seatNo; i < seats.length; i++){
         if(seats[i])
             alert("Seat " + i + " is available");
         else
-        alert("Seat " + i + " is not available.");
+        alert("Seat " + i + " is NOT available.");
     }
 }
 
+// Declare Seats globally to make them accessible across functions
+
+var seats = [false, true, false, true, true, true, false, true, false];
+var selectedSeat = -1; // Keeps track of the currently selected seat
+
+
 function initSeats(){
-    var seats = [false, true, false, true, true, true, false, true, false];
     // Initialize the appearance of all seats
     for(var i = 0; i < seats.length; i++) {
         if(seats[i]){
-            // Set the seat to available
-            document.getElementById("Seat " + i).src = "Available.jpeg";
-            document.getElementById("Seat " + i).alt = "Available Seat";
-        }
-        else{
-            // Set the seat to unavailable
-            document.getElementById("Seat " + i).src = "Unavailable.jpeg";
-            document.getElementById("Seat " + i).alt = "unavailable Seat";
+            let seatImg = document.getElementById("Seat " + i);
+            if (seats[i]) {
+                // Seat is available
+                seatImg.src = "Available.jpeg";
+                seatImg.alt = "Available Seat";
+            } else {
+                // Seat is Unavailable
+                seatImg.src = "Unavailable.jpeg";
+                seatImg.alt = "Unavailable Seat";
+            }
         }
     }
+}
+
+function findSeat() {
+    // Reset selection if a seat was already chosen
+
+    if (selectedSeat >= 0) {
+        selectedSeat = -1;
+        initSeats();
+    }
+
+    // search for an available Seat
+    for (var i=0; i < seats.length; i++){
+        if(seats[i]) { // check if the seat is available
+            selectedSeat = i;
+            let seatImg = document.getElementById("Seat " + i);
+
+            // update seat appearance to indicate Selection
+            seatImg.src = "seat_select.jpeg";
+            seatImg.alt = "Your Seat";
+
+            // Ask user to confirm Seat Selection
+            let accept = confirm("Seat " + (i + 1) + " is available. Accept?");
+            if (accept) {
+            // Seat is accepted, update availability
+            seats[i] =false; // Mark as unavailable
+            return;
+            } else {
+            // User rejected, reset appearance
+            seatImg.src = "Available.jpeg";
+            seatImg.alt = "Available Seat";
+            }
+        }
+    }
+
+    alert ("No available Seats left");
 }
