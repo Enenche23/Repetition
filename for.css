@@ -6,9 +6,13 @@ body {
 
 .seat-container {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     gap: 10px;
-    flex-wrap: wrap;
+}
+.seat-row {
+    display: flex;
+    gap: 10px;
 }
 
 .seat {
