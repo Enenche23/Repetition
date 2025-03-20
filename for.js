@@ -67,45 +67,94 @@ function initSeats() {
     }
 }
 
-// Function to find and select three consecutive available seats
 function findSeat() {
-    // Reset selection if a seat was already chosen
-    if (selectedSeat >= 0) {
-        selectedSeat = -1;
-        initSeats();
-    }
+    let availableSeats = []; // To store all available seat sets
 
-    // Search for an available set of 3 consecutive seats
-    for (var i = 0; i < seats.length; i++) {
-        for (var j = 0; j < seats[i].length - 2; j++) {
-            if (seats[i][j] && seats[i][j + 1] && seats[i][j + 2]) {
-                // Highlight seats as selected
-                updateSeatStatus(i, j, "seat_select.jpeg", "Your seat");
-                updateSeatStatus(i, j + 1, "seat_select.jpeg", "Your seat");
-                updateSeatStatus(i, j + 2, "seat_select.jpeg", "Your seat");
-
-                // Prompt the user to accept the seats
-                if (confirm(`Seats ${j + 1} through ${j + 3} in Row ${i + 1} are available. Accept?`)) {
-                    selectedSeat = i;
-                    return; // Exit after successful selection
-                } else {
-                    // Revert seat selection if rejected
-                    updateSeatStatus(i, j, "Available.jpeg", "Available seat");
-                    updateSeatStatus(i, j + 1, "Available.jpeg", "Available seat");
-                    updateSeatStatus(i, j + 2, "Available.jpeg", "Available seat");
-                }
+    // Iterate through each row to find three consecutive available seats
+    for (let row = 0; row < seats.length; row++) {
+        for (let col = 0; col <= seats[row].length - 3; col++) {
+            if (seats[row][col] && seats[row][col + 1] && seats[row][col + 2]) {
+                // Store the seat positions
+                availableSeats.push(`Row ${row + 1}: Seats ${col + 1} to ${col + 3}`);
             }
         }
     }
+
+    // Show the user all available options
+    if (availableSeats.length > 0) {
+        let seatOptions = "Available seat sets:\n" + availableSeats.join("\n");
+        alert(seatOptions);
+    } else {
+        alert("No three consecutive seats available in any row.");
+    }
 }
 
+
+
+// Function to find and select three consecutive available seats
+// function findSeat() {
+//     // Reset selection if a seat was already chosen
+//     if (selectedSeat >= 0) {
+//         selectedSeat = -1;
+//         initSeats();
+//     }
+
+//     // Search for an available set of 3 consecutive seats
+//     for (var i = 0; i < seats.length; i++) {
+//         for (var j = 0; j < seats[i].length - 2; j++) {
+//             if (seats[i][j] && seats[i][j + 1] && seats[i][j + 2]) {
+//                 // Highlight seats as selected
+//                 updateSeatStatus(i, j, "seat_select.jpeg", "Your seat");
+//                 updateSeatStatus(i, j + 1, "seat_select.jpeg", "Your seat");
+//                 updateSeatStatus(i, j + 2, "seat_select.jpeg", "Your seat");
+
+//                 // Prompt the user to accept the seats
+//                 if (confirm(`Seats ${j + 1} through ${j + 3} in Row ${i + 1} are available. Accept?`)) {
+//                     selectedSeat = i;
+//                     return; // Exit after successful selection
+//                 } else {
+//                     // Revert seat selection if rejected
+//                     updateSeatStatus(i, j, "Available.jpeg", "Available seat");
+//                     updateSeatStatus(i, j + 1, "Available.jpeg", "Available seat");
+//                     updateSeatStatus(i, j + 2, "Available.jpeg", "Available seat");
+//                 }
+//             }
+//         }
+//     }
+
+//     getSeatStatus();
+// }
+
 // Helper function to update seat status
-function updateSeatStatus(row, col, imgSrc, altText) {
-    let seatElement = document.getElementById("seat" + row + "-" + col);
-    if (seatElement) {
-        seatElement.src = imgSrc;
-        seatElement.alt = altText;
+// function updateSeatStatus(row, col, imgSrc, altText) {
+//     let seatElement = document.getElementById("seat" + row + "-" + col);
+//     if (seatElement) {
+//         seatElement.src = imgSrc;
+//         seatElement.alt = altText;
+//     }
+// }
+
+function getSeatStatus(seatNum) {
+    const row = Math.floor(seatNum / seats[0].length);
+    const col = seatNum % seats[0].length;
+
+    // Ensure seatNum is within valid range
+    if (row >= seats.length || col >= seats[0].length) {
+        console.error("Invalid seat number:", seatNum);
+        return "Invalid seat";
     }
+
+    // Check if the seat is part of the currently selected block
+    if (selectedSeat !== -1 && (seatNum === selectedSeat || seatNum === selectedSeat + 1 || seatNum === selectedSeat + 2)) {
+        return "Yours";
+    }
+
+    // Check if the seat is available
+    return seats[row][col] ? "Available" : "Unavailable";
+}
+
+function showSeatStatus(seatNum) {
+    alert("This seat is " + getSeatStatus(seatNum) + ".");
 }
 
 
