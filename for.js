@@ -180,6 +180,31 @@ function showSeatStatus(seatNum) {
         //     }
         
    // alert ("No available Seats left");
+
+   window.onload = function () {
+    // Ensure the "Find Seat" button exists before adding an event listener
+    let findSeatBtn = document.getElementById("findseats");
+    if (findSeatBtn) {
+        findSeatBtn.onclick = findSeat;
+    } else {
+        console.error("Button with ID 'findseats' not found.");
+    }
+
+    // Wire the seat image events dynamically for all 36 seats
+    for (let i = 0; i < 36; i++) {
+        let seat = document.getElementById("Seat " + i);  // Corrected the ID format
+        if (seat) {
+            seat.onclick = function () { showSeatStatus(i); };
+        } else {
+            console.error(`Seat ${i} not found in the document.`);
+        }
+    }
+
+    // Initialize the seat appearance
+    initSeats();
+};
+
+
     
 
 
